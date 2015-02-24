@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if [ -f "/Library/LaunchDaemons/org.da.networkhomedirmountwatch.plist" ]; then
+	launchctl unload /Library/LaunchDaemons/org.da.networkhomedirmountwatch.plist
+fi
