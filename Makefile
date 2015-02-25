@@ -1,18 +1,20 @@
-VER=0.1
-IDENTIFIER=org.da.networkhomedirmountwatch
-SCRIPTNAME=networkhomedirmountwatch.py
+# Luggage Makefile
+# http://wiki.github.com/unixorn/luggage/
 
-networkhomedirmountwatch.pkg: $(SCRIPTNAME) $(IDENTIFIER).plist postinstall preinstall
-	rm -rf pkgroot pkgscripts
-	mkdir pkgroot pkgscripts
+include /usr/local/share/luggage/luggage.make
 
-	cp postinstall preinstall pkgscripts/
-	mkdir -p pkgroot/{Library/LaunchDaemons,usr/local/bin}
-	cp $(SCRIPTNAME) pkgroot/usr/local/bin
-	cp $(IDENTIFIER).plist pkgroot/Library/LaunchDaemons
-	xattr -cr pkgroot pkgscripts
+TITLE=networkhomedirmountwatch
+REVERSE_DOMAIN=org.da
 
-	pkgbuild --version $(VER) --scripts pkgscripts --root pkgroot --identifier $(IDENTIFIER) $@
+PAYLOAD=\
+        pack-scriptPy\
+	pack-Library-LaunchDaemons-org.da.networkhomedirmountwatch.plist\
+	pack-script-preinstall\
+	pack-script-postinstall
 
-clean:
-	rm -rf *.pkg *.dmg pkgroot pkgscripts
+PACKAGE_VERSION=0.3
+
+pack-scriptPy: l_usr_local_bin
+	@sudo ${CP} ./networkhomedirmountwatch.py ${WORK_D}/usr/local/bin/networkhomedirmountwatch.py
+	@sudo chmod 755 ${WORK_D}/usr/local/bin/networkhomedirmountwatch.py
+	@sudo chown root:wheel ${WORK_D}/usr/local/bin/networkhomedirmountwatch.py
