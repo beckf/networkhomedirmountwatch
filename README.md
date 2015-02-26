@@ -7,5 +7,6 @@ that are not currently in use by a logged in user.  All processes for the logged
 is forcibly unmounted.
 
 # Installing
-Use Luggage to build a package.
+Use Luggage to build a package. <br />
+https://github.com/unixorn/luggage <br />
 make pkg
